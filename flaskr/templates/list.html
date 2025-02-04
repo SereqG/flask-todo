@@ -1,11 +1,30 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
-  </head>
-  <body>
-    <h1>Hello</h1>
-  </body>
-</html>
+{% extends "base.html" %} {% block title %}To-Do List{% endblock %} {% block
+content %}
+<div class="container">
+  <h2>Simple To-Do List</h2>
+  <section class="task-list-container">
+    {% if items %}
+    <div class="list-header">
+      <p>Task Name</p>
+      <p>Time</p>
+      <p>Status</p>
+      <p>Action</p>
+    </div>
+    <ul class="list">
+      {% for item in items %}
+      <li class="task">
+        <p>{{ item.task_name }}</p>
+        <p>{{ item.time }}</p>
+        <p class="{{ 'done' if item.is_done else 'pending' }}">
+          {{ "Done" if item.is_done else "Pending" }}
+        </p>
+        <button class="status-button">Change Status</button>
+      </li>
+      {% endfor %}
+    </ul>
+    {% else %}
+    <p>No tasks available.</p>
+    {% endif %}
+  </section>
+</div>
+{% endblock %}
